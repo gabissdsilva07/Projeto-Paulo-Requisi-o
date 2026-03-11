@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulação Requisição!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        #urlInput {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        #urlInput:focus {
+            border-color: #408eff;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #408eff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .search-container button:hover {
+            background-color: #006dd9;
+        }
+
+        .container-blocos {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .bloco {
+            padding: 15px 25px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .selecionado {
+            background-color: #408eff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            display: none; 
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simulação Trabalho Front-End</h1>
+    <hr>
+
+    <div class="container-blocos">
+        <div class="bloco" id="btnGet">Get</div>
+        <div class="bloco" id="btnPost">Post</div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="urlInput" placeholder="Digite a URL aqui (ex: https://api.exemplo.com)...">
+        <button id="btnEnviar">Enviar</button>
+    </div>
+
+    <div id="resultado"></div>
+
+    <script>
+        const btnGet = document.getElementById('btnGet');
+        const btnPost = document.getElementById('btnPost');
+        const btnEnviar = document.getElementById('btnEnviar');
+        const urlInput = document.getElementById('urlInput');
+        const resultadoDiv = document.getElementById('resultado');
+
+        let metodoSelecionado = "";
+
+        btnGet.addEventListener('click', function() {
+            metodoSelecionado = "GET";
+            btnGet.classList.add('selecionado');
+            btnPost.classList.remove('selecionado');
+        });
+
+        btnPost.addEventListener('click', function() {
+            metodoSelecionado = "POST";
+            btnPost.classList.add('selecionado');
+            btnGet.classList.remove('selecionado');
+        });
+
+        btnEnviar.addEventListener('click', function() {
+            const url = urlInput.value;
+
+            if (!metodoSelecionado) {
+                alert("Por favor, selecione um método (Get ou Post) primeiro!");
+                return;
+            }
+
+            if (url === "") {
+                alert("Por favor, insira uma URL.");
+                return;
+            }
+
+            resultadoDiv.style.display = "block";
+            
+            resultadoDiv.innerHTML = `
+                <h3 style="margin-top: 0; color: #408eff;">Detalhes da Requisição</h3>
+                <p><strong>Método:</strong> ${metodoSelecionado}</p>
+                <p><strong>URL Destino:</strong> ${url}</p>
+                <p style="color: #28a745; font-weight: bold;">Status: 200 OK (Simulado)</p>
+            `;
+        });
+    </script>
+
+</body>
+</html>
